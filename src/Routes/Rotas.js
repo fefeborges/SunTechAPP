@@ -7,9 +7,14 @@ import { AuthContext } from '../Context/AuthContext';
 
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
+<<<<<<< HEAD
 import Cadastro from '../Pages/Cadastro';
 import Foto from '../Pages/Foto';
 import Carrinho from '../Pages/Carrinho';      
+=======
+import Produto from '../Pages/Produto';
+import Perfil from '../Pages/Perfil';
+>>>>>>> 9a06350383ff1fe9ac76ade58e25bc2cc1e7f5d7
 
 const Tab = createBottomTabNavigator();
 
@@ -43,8 +48,26 @@ export default function Rotas() {
                     }}
                 />
                 <Tab.Screen
-                    name="Foto"
-                    component={Foto}
+                    name="Produto"
+                    component={Produto}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="cart" color={color} size={size} />
+                        ),
+                    }}
+                />
+                <Tab.Screen
+                    name="Perfil"
+                    component={Perfil}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="account" color={color} size={size} />
+                        ),
+                    }}
+                />
+                <Tab.Screen
+                    name="Login"
+                    component={Login}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="camera" color={color} size={size} />
