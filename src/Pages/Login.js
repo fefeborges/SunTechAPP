@@ -16,10 +16,13 @@ export default function Login() {
 
     return (
         <ScrollView contentContainerStyle={css.container}>
-            <Image source={require("../../assets/logo.png")} style={css.logo} />
+            <Image source={require("../../assets/suntech.jpeg")} style={css.logo} />
+            <Text style={css.texto}>
+                FAÇA SEU LOGIN  
+            </Text>
             <TextInput
-                inputMode="email"
-                placeholder="Email"
+                inputMode="E-mail"
+                placeholder="E-mail"
                 style={css.input}
                 value={email}
                 onChangeText={(digitado) => setEmail(digitado)}
@@ -27,19 +30,20 @@ export default function Login() {
             />
             <TextInput
                 inputMode="text"
-                placeholder="Password"
+                placeholder="Senha"
                 secureTextEntry={true}
                 style={css.input}
                 value={senha}
                 onChangeText={(digitado) => setSenha(digitado)}
                 placeholderTextColor="white"
             />
-            <View style={css.forgot}>
-                <Text style={css.forgotText}>Esqueceu a senha?</Text>
-            </View>
+           
             <TouchableOpacity style={css.btnLogin} onPress={RealizaLogin}>
-                <Text style={css.btnLoginText}>Log In</Text>
+                <Text style={css.btnLoginText}>Entrar</Text>
             </TouchableOpacity>
+            <View style={css.forgot}>
+                <Text style={css.forgotText}>Não possui cadastro ainda? Cadastre-se</Text>
+            </View>
             {error &&
                 <View style={css.error}>
                     <Text style={css.errorText}>Revise os campos. Tente novamente!</Text>
@@ -55,41 +59,45 @@ const css = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         alignContent: "center",
-        backgroundColor: "#191919"
+        backgroundColor: "#263470"
     },
     logo: {
         width: "60%",
-        resizeMode: "contain"
+        height: 130,
+        resizeMode: "cover",
+        top: -155
     },
     input: {
-        width: "90%",
+        width: "75%",
         height: 50,
-        borderRadius: 10,
         marginBottom: 15,
-        padding: 15,
-        backgroundColor: "#262626",
-        color: "white"
+        color: "white",
+        borderBottomColor: "white",
+        borderBottomWidth: 1
+        
     },
     forgot: {
         width: "90%",
         marginTop: 10,
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
+        justifyContent: "center",
+        alignItems: "center",
     },
     forgotText: {
-        color: "#0195fd",
-        fontWeight: "bold"
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
     },
     btnLogin: {
-        width: "90%",
+        width: "40%",
         height: 50,
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 10,
         marginTop: 30,
-        backgroundColor: "#0195fd"
+        backgroundColor: "#F8C728",
+        
     },
     btnLoginText: {
-        color: "white",
+        color: "black",
         lineHeight: 45,
         textAlign: "center",
         fontSize: 15,
@@ -103,5 +111,11 @@ const css = StyleSheet.create({
     errorText: {
         color: "white",
         textAlign: "center"
+    },
+    texto: {
+        fontSize: 22,
+        color: "white",
+        position: "absolute",
+        top: 260
     }
 });
