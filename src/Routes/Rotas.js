@@ -49,6 +49,15 @@ export default function Rotas() {
                         ),
                     }}
                 />
+                <Tab.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="camera" color={color} size={size} />
+                        ),
+                    }}
+                />
             </Tab.Navigator>
         </NavigationContainer>
     )
