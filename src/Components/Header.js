@@ -1,6 +1,6 @@
 import { Button, Image, StyleSheet, Text, View } from 'react-native'
 import React, { Component } from 'react'
-import Logo from '/Users/Aluno/Desktop/SunTech Oficial/SunTechAPP/assets/logo azul sem texto.jpeg'
+import Logo from '../../assets/logo azul sem texto.jpeg'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class Header extends Component {
@@ -10,7 +10,7 @@ export default class Header extends Component {
         <View style={css.logo}>
         <Image style={css.imagem} source={Logo}/>
         </View>
-        <MaterialCommunityIcons style={css.carrinho}  name="cart-outline" size={30}  />
+        <MaterialCommunityIcons style={css.carrinho}  name="cart-outline" size={28}  />
       </View>
     )
   }
@@ -21,10 +21,9 @@ const css = StyleSheet.create({
         backgroundColor: "#263470",
         height: 80,
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
     },
-    logo:{
-        
+    logo:{      
         height: "100%",
         width: "70%",
         position: "static"
@@ -36,8 +35,7 @@ const css = StyleSheet.create({
       paddingRight: 20,
       verticalAlign: "bottom",
       paddingBottom: 10 ,
-      color: "#F8C728",
-      
+      color: "#F8C728",   
     },
     imagem: {
       resizeMode: "cover" ,

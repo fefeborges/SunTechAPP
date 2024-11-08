@@ -7,7 +7,6 @@ import { AuthContext } from '../Context/AuthContext';
 
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
-import Foto from '../Pages/Foto';
 import Produto from '../Pages/Produto';
 import Perfil from '../Pages/Perfil';
 
@@ -48,15 +47,6 @@ export default function Rotas() {
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="cart" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Foto"
-                    component={Foto}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="camera" color={color} size={size} />
                         ),
                     }}
                 />

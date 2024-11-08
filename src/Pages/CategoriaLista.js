@@ -1,17 +1,16 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 
-export default function CategoriaLista({ id, imagem, nome }) {
-    console.log( id );
+export default function CategoriaLista({ id, imagem, nome, filterByCategoria }) {
     return(
-        <View style={css.container} key={id}>  
+        <TouchableOpacity style={css.container} key={id} onPress={ () => filterByCategoria( id )}>
         <View style={css.boximagem}>
             <Image style={css.imagem} source={{uri: imagem}}/>   
         </View>
         <View style={css.boxnome}>
             <Text style={css.nome}>{nome}</Text>
         </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 const css = StyleSheet.create({
@@ -22,6 +21,7 @@ const css = StyleSheet.create({
         alignItems: "center",
         height: 300,
         width: 180,
+        bottom: 20
       },
     boximagem: {
         backgroundColor: "white",

@@ -2,7 +2,6 @@ import { Button, Image, StyleSheet, Text, View, TouchableOpacity } from "react-n
 
 
 export default function ProdutosLista({ id, imagem, nome, preco }) {
-    console.log( id );
     return(
         <View style={css.container} key={id}>  
             <View style={css.boximagem}>
@@ -21,7 +20,7 @@ export default function ProdutosLista({ id, imagem, nome, preco }) {
 const css = StyleSheet.create({
     container: {
         backgroundColor: "#263470",
-        width: "72%",
+        width: "80%",
         height: 150,
         display: "flex",
         alignSelf: "center",
@@ -29,7 +28,6 @@ const css = StyleSheet.create({
         marginBottom: 15,
         paddingBottom: 15,
         borderRadius: 8,
-
     },
     nome: {
         fontSize: 17,
@@ -52,7 +50,6 @@ const css = StyleSheet.create({
         height: 105,
         width: "38%",
         borderRadius: 8,
-        position: "relative",
         alignSelf: "flex-start",
         marginBottom: -30,
         marginTop: 50,
