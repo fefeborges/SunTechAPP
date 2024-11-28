@@ -62,9 +62,10 @@ export default function Produto() {
             }
             {filtro &&
                 <FlatList
+                    showsVerticalScrollIndicator={false}
                     style={css.lista2}
                     data={filtro}
-                    renderItem={({ item }) => <ProdutosLista imagem={item.fotoProduto} nome={item.nomeProduto} preco={item.precoProduto} id={item.produtoId} />}
+                    renderItem={({ item }) => <ProdutosLista item={item} imagem={item.fotoProduto} nome={item.nomeProduto} preco={item.precoProduto} id={item.produtoId} />}
                     keyExtractor={(item) => item.produtoId}
                 />
             }
@@ -73,7 +74,7 @@ export default function Produto() {
                     showsVerticalScrollIndicator={false}
                     style={css.lista2}
                     data={produtos}
-                    renderItem={({ item }) => <ProdutosLista imagem={item.fotoProduto} nome={item.nomeProduto} preco={item.precoProduto} id={item.produtoId} />}
+                    renderItem={({ item }) => <ProdutosLista item={item} imagem={item.fotoProduto} nome={item.nomeProduto} preco={item.precoProduto} id={item.produtoId} />}
                     keyExtractor={(item) => item.produtoId}
                 />
             }
