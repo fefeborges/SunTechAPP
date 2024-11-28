@@ -1,6 +1,6 @@
 import { Button, Image, StyleSheet, Text, View } from 'react-native'
 import React, { Component } from 'react'
-import Logo from '/Users/Aluno/Desktop/SunTech Oficial/SunTechAPP/assets/logo azul sem texto.jpeg'
+import Logo from '../../assets/logo azul sem texto.jpeg'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class Header extends Component {
@@ -21,10 +21,9 @@ const css = StyleSheet.create({
         backgroundColor: "#263470",
         height: 80,
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
     },
     logo:{
-        
         height: "100%",
         width: "70%",
         position: "static"

@@ -19,7 +19,7 @@ function AuthProvider({ children }) {
                     password: senha
                 })
             })
-                .then(res => (res.ok == true) ? res.json() : false)
+                .then(res => res.json() )
                 .then(json => {
                     setLogado((json.token) ? true : false);
                     setError((json.token) ? false : true);

@@ -8,6 +8,8 @@ import { AuthContext } from '../Context/AuthContext';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Foto from '../Pages/Foto';
+import Compras from "../Pages/Compras";
+import CompraAprovacao from '../Pages/CompraAprovacao';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,6 +51,16 @@ export default function Rotas() {
                         ),
                     }}
                 />
+                <Tab.Screen
+                    name="Compra"
+                    component={Compras}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="camera" color={color} size={size} />
+                        ),
+                    }}
+                />
+                
             </Tab.Navigator>
         </NavigationContainer>
     )
