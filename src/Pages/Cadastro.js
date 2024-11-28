@@ -1,9 +1,9 @@
 import { Text, TextInput, TouchableOpacity, View, StyleSheet, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import Logo from '/Users/Aluno/Desktop/suntechapp/SunTechAPP/assets/logo suntech.jpg'
+import Logo from '../../assets/logo suntech.jpg'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function Cadastro() {
+export default function Cadastro({setCadastro}) {
     const [error, setError] = useState(false);
     const [nome, setNome] = useState();
     const [CPF, setCPF] = useState();
@@ -63,10 +63,13 @@ export default function Cadastro() {
                 <TextInput style={css.input} onChangeText={(value) => setSenha(value)} placeholder='Senha'  placeholderTextColor="white" />
                 <TextInput style={css.input} onChangeText={(value) => setSenha(value)}  placeholder='Confirmar Senha ' placeholderTextColor="white"/>
                 <TouchableOpacity style={css.btn} onPress={cadastrar}>
-                    <Text style={css.TextBtn}>Cadastrar</Text>
+                    <Text style={css.TextBtn}>CADASTRAR</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={css.btnvoltar} onPress={ () => setCadastro( false )}>
+                    <Text style={css.TextBtnVoltar}>VOLTAR</Text>
                 </TouchableOpacity>
                 {resultado && 
-                    <Text style={css.cadastro}>Cadastrado Com Sucesso </Text>
+                    <Text style={css.cadastro}>Cadastrado Com Sucesso</Text>
                 }
             </ScrollView>
         </View>
@@ -116,11 +119,27 @@ const css = StyleSheet.create({
         alignSelf: "center",
 
     },
+    btnvoltar: {
+        width: "50%",
+        height: 40,
+        borderRadius: 6,
+        borderWidth: 1,
+        marginBottom: 20,
+        borderColor: "white",
+        alignSelf: "center",
+
+    },
     TextBtn: {
         textAlign: "center",
-       marginTop:5,
+        marginTop:5,
         fontSize: 17
 
+    },
+    TextBtnVoltar: {
+        textAlign: "center",
+        marginTop:5,
+        fontSize: 17,
+        color: 'white'
     },
     cadastro:{
         width: "100%",

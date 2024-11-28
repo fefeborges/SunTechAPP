@@ -1,20 +1,41 @@
-import { Button, Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Button, Image, StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from "../Context/AuthContext";
+
+export default function ProdutosLista({ item, id, imagem, nome, preco }) {
 
 
-export default function ProdutosLista({ id, imagem, nome, preco }) {
-    return(
-        <View style={css.container} key={id}>  
+    const { setCarrinho, carrinho } = useContext(AuthContext);
+    const [ show, setShow] = useState();
+
+    function addProduto() {
+        
+        const novoCarrinho = [...carrinho, item];
+        setCarrinho(novoCarrinho);
+        setShow( true );
+        setTimeout( () => {
+            setShow( false );
+        }, 3000 );
+                
+    }
+
+
+    return (
+        <>
+        <View style={css.container} key={id}>
             <View style={css.boximagem}>
-                <Image style={css.imagem} source={{uri: imagem}}/>   
+                <Image style={css.imagem} source={{ uri: imagem }} />
             </View>
             <View style={css.info}>
                 <Text style={css.nome}>{nome}</Text>
                 <Text style={css.preco}>R${preco},00</Text>
-                <TouchableOpacity style={css.btn}>
+                <TouchableOpacity style={css.btn} onPress={addProduto}>
                     <Text style={css.btntexto}>+</Text>
-                </TouchableOpacity> 
+                </TouchableOpacity>
             </View>
         </View>
+        {show && <View style={css.aviso}><Text style={css.avisotexto}>Produto adicionado no carrinho!</Text></View>}
+        </>
     )
 }
 const css = StyleSheet.create({
@@ -58,7 +79,7 @@ const css = StyleSheet.create({
         top: -25
     },
     imagem: {
-        width:"92%",
+        width: "92%",
         height: "92%",
         resizeMode: "contain",
         left: 5,
@@ -84,5 +105,19 @@ const css = StyleSheet.create({
         textAlign: "center",
         marginTop: -4,
         fontSize: 20,
+    },
+    aviso: {
+        backgroundColor:'#f0f0f0',
+        padding: 10,
+        borderRadius: 5,
+        width: '80%',
+        alignSelf: 'center',
+        
+    },
+    avisotexto:{
+        textAlign: 'center',
+        fontSize: 17,
+        color: '#263470',
     }
-})
+});
+

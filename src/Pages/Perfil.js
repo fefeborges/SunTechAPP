@@ -1,25 +1,91 @@
-import React from 'react'
 import { Text, FlatList, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext} from 'react';
 import Header from '../Components/Header';
+import { AuthContext } from '../Context/AuthContext';
 
 export default function Perfil() {
 
-    const [cliente, setCliente] = useState([]);
-    const [error, setError] = useState(false);
+    const {usuario, Login, erro, setError } = useContext( AuthContext );
 
-    async function getClienteId() {
-        await fetch('http://10.133.22.10:5251/api/Cliente/GetClienteId/', {
+    const [ monitoramento, setMonitoramento] = useState();
+    const [ mediaDia, setMediaDia ] = useState(0);
+    const [ aviso, setAviso ] = useState(false);
+    const [ show, setShow] = useState();
+
+    function Manutencao() {
+        
+        setShow( true );
+        setTimeout( () => {
+            setShow( false );
+        }, 3000 );
+                
+    };  
+    async function getMonitoramento()
+    {
+        await fetch('http://10.133.22.10:5251/api/Monitoramento/GetAllMonitoramentos', {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'
             }
         })
-            .then(res => res.json())
-            .then(json => setCliente(json))
-            .catch(err => setError(true))
+            .then(res => res.json() )
+            .then(json => {
+                
+                json.map( (item) => {
+                    const filtro = json.filter( dados => dados.clienteId == usuario.clienteId ).map(filteredObj => filteredObj.monitoramentoId);
+                    setMonitoramento( filtro );
+                })
+            }
+            )
+            .catch(erro => setError(true) )
     }
-    useEffect(() => { getClienteId() }, [])
+
+    async function getMonitoramentoDiario()
+    {
+        await fetch('http://10.133.22.10:5251/api/MonitoramentoDiario/GetAllMonitoramentosDiarios', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(res => res.json() )
+            .then(json => {
+                let media = 0;
+                json.map( (item) => {
+                    if( monitoramento.includes( item.monitoramentoId ) ) {
+                        media += item.mediaDia;
+                    }
+                })
+
+                setMediaDia( media );  
+            }
+            )
+            .catch(erro => setError(true) )
+    }
+
+
+
+    useEffect( () => {
+        getMonitoramento();
+    }, [] );
+
+    useEffect( () => {
+        getMonitoramentoDiario();
+    }, [monitoramento] );
+    
+    function getIniciais()
+    {
+        const nome = usuario.nomeCliente.split( " " );
+        const primeiraInicial = nome[0].substr(0, 1);
+        let iniciais = "";
+        if(  nome[1] ) {
+            const ultimaInicial = nome[1].substr(0, 1);
+            iniciais = primeiraInicial + ultimaInicial;
+        } else {
+            iniciais = nome[0].substr(0, 3);
+        }
+        return iniciais;
+    }
 
 
     return (
@@ -28,9 +94,9 @@ export default function Perfil() {
             <View style={css.boxamarela}></View>
             <View style={css.boxbranca}>
                 <View style={css.boxabreviacao}>
-                    <Text style={css.abreviacao}>FP</Text>
+                    <Text style={css.abreviacao} >{getIniciais()}</Text>
                 </View>
-                <Text style={css.texto1}>OLÁ, FELIPE PENACHI DE MELLO</Text>
+                <Text style={css.texto1}>OLÁ, {usuario.nomeCliente}</Text>
             </View>
             <ScrollView style={css.info} showsVerticalScrollIndicator={false}>
                 <Text style={css.titulo}>Dados pessoais</Text>
@@ -38,38 +104,38 @@ export default function Perfil() {
                     <Text style={css.label}>CPF</Text>
                 </View>
                 <View style={css.boxinfo}>
-                    <Text style={css.texto2}>345.066.828-36</Text>
+                    <Text style={css.texto2}>{usuario.cpfCliente}</Text>
                 </View>
                 <View>
                     <Text style={css.label}>Endereço</Text>
                 </View>
                 <View style={css.boxinfo}>
-                    <Text style={css.texto2}>Rua Fulano de Tal, N° 524</Text>
+                    <Text style={css.texto2}>{usuario.enderecoCliente}</Text>
                 </View>
                 <View>
                     <Text style={css.label}>Email</Text>
                 </View>
                 <View style={css.boxinfo}>
-                    <Text style={css.texto2}>fefe.mello@gmail.com</Text>
+                    <Text style={css.texto2}>{usuario.emailCliente}</Text>
                 </View>
                 <View>
                     <Text style={css.label}>Telefone</Text>
                 </View>
                 <View style={css.boxinfo}>
-                    <Text style={css.texto2}>(14) 99148-4822</Text>
+                    <Text style={css.texto2}>{usuario.telefoneCliente}</Text>
                 </View>
                 <View style={css.boxinfo2}>
                     <View style={css.linha}></View>
                     <Text style={css.titulo}>Minhas Placas</Text>
                     <View style={css.info2}>
-                        <Text style={css.texto3}>18°C</Text>
+                        <Text style={css.texto3}>{Math.round( 10, 32 )}°C</Text>
                         <View style={css.circulo}>
-                            <Text style={css.texto4}>18.3 kW</Text>
+                            <Text style={css.texto4}>{Math.round( 10, 25 )}kW</Text>
                             <Text style={css.texto5}>Energia Solar Agora</Text>
                         </View>
                         <View style={css.box2}>
                             <Text style={css.texto7}>Produção hoje</Text>
-                            <Text style={css.texto6}>21.5 kW</Text>
+                            <Text style={css.texto6}>{mediaDia} kW</Text>
                         </View>
                     </View>
                     <View style={css.linha}></View>
@@ -83,8 +149,9 @@ export default function Perfil() {
                         <Text style={css.texto9}>15/01/2025</Text>
                     </View>
                     <TouchableOpacity style={css.btn}>
-                        <Text style={css.textobtn}>SOLICITAR MANUTENÇÃO</Text>
+                        <Text style={css.textobtn} onPress={Manutencao}>SOLICITAR MANUTENÇÃO</Text>
                     </TouchableOpacity>
+                    {show && <View style={css.aviso}><Text style={css.avisotexto}>Manutenção Solicitada!</Text></View>}
                 </View>
             </ScrollView>
 
@@ -97,6 +164,7 @@ const css = StyleSheet.create({
         flexGrow: 1,
         color: "black",
         alignItems: "center",
+
     },
     boxamarela: {
         height: 170,
@@ -115,7 +183,8 @@ const css = StyleSheet.create({
     },
     texto1: {
         textAlign: "center",
-        fontSize: 18
+        fontSize: 18,
+        textTransform: 'uppercase'
     },
     boxabreviacao: {
         borderRadius: 30,
@@ -130,7 +199,8 @@ const css = StyleSheet.create({
     abreviacao: {
         fontSize: 24,
         textAlign: "center",
-        marginTop: 13
+        marginTop: 13,
+        textTransform: 'uppercase'
     },
     titulo: {
         fontSize: 20,
@@ -232,7 +302,7 @@ const css = StyleSheet.create({
         width: '90%',
         height: 180,
         borderRadius: 6,
-        marginTop: 30,
+        marginTop: 20,
         display: 'flex',
         flexDirection: 'column',
         alignSelf: 'center'
@@ -256,12 +326,30 @@ const css = StyleSheet.create({
         borderRadius: 6,
         borderWidth: 1,
         borderColor: 'black',
-        marginTop: 25,
+        marginTop: 20,
+        marginBottom: 10,
         alignSelf: 'center'
     },
     textobtn: {
         fontSize: 18,
         textAlign: 'center',
         marginTop: 8
-    }
+    },
+    aviso: {
+        width: "90%",
+        borderRadius: 6,
+        height: 40,
+        alignSelf: 'center',
+        backgroundColor: 'white',
+        marginTop: 30,
+        bottom: 30
+
+    },
+    avisotexto: {
+        textAlign: "center",
+        fontSize: 17,
+        marginTop: 7,
+        color: '#263470',
+    },
+    
 })
