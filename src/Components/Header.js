@@ -10,7 +10,7 @@ export default class Header extends Component {
         <View style={css.logo}>
         <Image style={css.imagem} source={Logo}/>
         </View>
-        <MaterialCommunityIcons style={css.carrinho}  name="cart-outline" size={30}  />
+        <MaterialCommunityIcons style={css.carrinho}  name="cart-outline" size={28}  />
       </View>
     )
   }
@@ -23,7 +23,11 @@ const css = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
     },
+<<<<<<< HEAD
     logo:{
+=======
+    logo:{      
+>>>>>>> 2b0b33a5522c599fd335e6ca9b15420095290ab0
         height: "100%",
         width: "70%",
         position: "static"
@@ -35,8 +39,7 @@ const css = StyleSheet.create({
       paddingRight: 20,
       verticalAlign: "bottom",
       paddingBottom: 10 ,
-      color: "#F8C728",
-      
+      color: "#F8C728",   
     },
     imagem: {
       resizeMode: "cover" ,
