@@ -2,6 +2,7 @@ import { Text, FlatList, View, StyleSheet, ScrollView, TouchableOpacity } from '
 import { useState, useEffect, useContext} from 'react';
 import Header from '../Components/Header';
 import { AuthContext } from '../Context/AuthContext';
+import Carrinho from './Carrinho';
 
 export default function Perfil() {
 
@@ -11,6 +12,10 @@ export default function Perfil() {
     const [ mediaDia, setMediaDia ] = useState(0);
     const [ aviso, setAviso ] = useState(false);
     const [ show, setShow] = useState();
+
+    const { exibeCarrinho } = useContext(AuthContext);
+
+    
 
     function Manutencao() {
         
@@ -85,6 +90,10 @@ export default function Perfil() {
             iniciais = nome[0].substr(0, 3);
         }
         return iniciais;
+    }
+
+    if (exibeCarrinho) {
+        return (<Carrinho />)
     }
 
 

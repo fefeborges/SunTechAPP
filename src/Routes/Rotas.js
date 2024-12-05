@@ -8,12 +8,8 @@ import { AuthContext } from '../Context/AuthContext';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Cadastro from '../Pages/Cadastro';
-<<<<<<< HEAD
-=======
-import Foto from '../Pages/Foto';
 import Compras from "../Pages/Compras";
 import CompraAprovacao from '../Pages/CompraAprovacao';
->>>>>>> 3e2d2d5abe505f2b68babca1d849be545454a1c3
 import Carrinho from '../Pages/Carrinho';      
 import Produto from '../Pages/Produto';
 import Perfil from '../Pages/Perfil';

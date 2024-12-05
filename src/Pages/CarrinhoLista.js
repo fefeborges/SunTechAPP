@@ -1,8 +1,19 @@
-import { Button, Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useContext, useState } from "react";
+import { Button, Image, StyleSheet, Text, View, TouchableOpacity, Pressable } from "react-native";
+import { AuthContext } from "../Context/AuthContext";
 
 
-export default function ProdutosLista({ id, imagem, nome, preco }) {
+export default function CarrinhoLista({ id, imagem, nome, preco }) {
+
     const [checkbox, setCheckbox] = useState(false);
+
+    const {carrinho, setCarrinho} = useContext( AuthContext );
+
+    function deleteProduto()
+    {
+        const novoCarrinho = carrinho.filter( item => item.produtoId != id );
+        setCarrinho( novoCarrinho );
+    }
     return(
         <View style={css.container} key={id}>  
         <View style={css.box}>
@@ -15,12 +26,14 @@ export default function ProdutosLista({ id, imagem, nome, preco }) {
             <View style={css.info}>
                 <Text style={css.nome}>{nome}</Text>
                 <Text style={css.preco}>R${preco},00</Text>
-                <TouchableOpacity style={css.btn}>
-                    <Text style={css.btntexto}>-</Text>
-                </TouchableOpacity> 
-                <TouchableOpacity style={css.btn}>
-                    <Text style={css.btntexto}>+</Text>
-                </TouchableOpacity> 
+                <View style={css.boxadicao}>
+                    <TouchableOpacity style={css.btn} onPress={() => deleteProduto() }>
+                        <Text style={css.btntexto}>-</Text>
+                    </TouchableOpacity> 
+                    <TouchableOpacity style={css.btn}>
+                        <Text style={css.btntexto}>+</Text>
+                    </TouchableOpacity> 
+                </View>
             </View>
         </View>
     )
@@ -51,6 +64,7 @@ const css = StyleSheet.create({
         alignSelf: "center",
         marginLeft: 15,
         marginTop: 30,
+        top: 23
     },
     boximagem: {
         backgroundColor: "white",
@@ -83,13 +97,17 @@ const css = StyleSheet.create({
         alignSelf: "flex-end",
         marginRight: 20,
         alignItems: "center",
-        marginTop: -25
     },
     btntexto: {
         color: "#F8C728",
         textAlign: "center",
-        marginTop: -4,
+        marginTop: -2,
         fontSize: 20,
+    },
+    boxadicao: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        left: 5
     }
-
 })

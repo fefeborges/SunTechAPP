@@ -1,19 +1,25 @@
 import { Button, Image, StyleSheet, Text, View } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import Logo from '../../assets/logo azul sem texto.jpeg'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AuthContext } from '../Context/AuthContext';
 
-export default class Header extends Component {
-    render() {
-        return (
-            <View style={css.header}>
-                <View style={css.logo}>
-                    <Image style={css.imagem} source={Logo} />
-                </View>
-                <MaterialCommunityIcons style={css.carrinho} name="cart-outline" size={28} />
+export default function Header() {
+
+
+    const { setExibeCarrinho } = useContext(AuthContext);
+
+
+
+    return (
+        <View style={css.header}>
+            <View style={css.logo}>
+                <Image style={css.imagem} source={Logo} />
             </View>
-        )
-    }
+            <MaterialCommunityIcons onPress={() => setExibeCarrinho(true)} style={css.carrinho} name="cart-outline" size={28} />
+        </View>
+    )
+
 }
 const css = StyleSheet.create({
     header: {
