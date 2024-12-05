@@ -2,12 +2,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Cadastro from '../Pages/Cadastro';
+<<<<<<< HEAD
+=======
+import Foto from '../Pages/Foto';
+import Compras from "../Pages/Compras";
+import CompraAprovacao from '../Pages/CompraAprovacao';
+>>>>>>> 3e2d2d5abe505f2b68babca1d849be545454a1c3
 import Carrinho from '../Pages/Carrinho';      
 import Produto from '../Pages/Produto';
 import Perfil from '../Pages/Perfil';
@@ -18,8 +24,14 @@ export default function Rotas() {
 
     const { logado } = useContext(AuthContext);
 
-    if (!logado) {
-        return (<Login />)
+    const [ cadastro, setCadastro ] = useState();
+
+    if (!logado && !cadastro) {
+        return (<Login setCadastro={setCadastro}/>)
+    }
+
+    if( !logado && cadastro ) {
+        return ( <Cadastro setCadastro={setCadastro}/> )
     }
 
     return (
@@ -29,9 +41,11 @@ export default function Rotas() {
                     headerShown: false,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-                        backgroundColor: '#191919',
+                        backgroundColor: '#263470',
+                        height: 55
                     },
-                    tabBarActiveTintColor: "white"
+                    tabBarActiveTintColor: "#F8C728",
+                    tabBarInactiveTintColor: 'white'
                 }}
             >
                 <Tab.Screen
@@ -39,7 +53,7 @@ export default function Rotas() {
                     component={Home}
                     options={{
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="home" color={color} size={size} />
+                            <MaterialCommunityIcons name="home" color={color} size={30} />
                         ),
                     }}
                 />
@@ -48,7 +62,7 @@ export default function Rotas() {
                     component={Produto}
                     options={{
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="cart" color={color} size={size} />
+                            <MaterialCommunityIcons name="white-balance-sunny" color={color} size={30} />
                         ),
                     }}
                 />
@@ -57,34 +71,7 @@ export default function Rotas() {
                     component={Perfil}
                     options={{
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="account" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Login"
-                    component={Login}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="camera" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Cadastro"
-                    component={Cadastro}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="camera" color={color} size={size} />
-                        ),
-                    }}
-                />
-                <Tab.Screen
-                    name="Carrinho"
-                    component={Carrinho}
-                    options={{
-                        tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons name="home" color={color} size={size} />
+                            <MaterialCommunityIcons name="account" color={color} size={30} />
                         ),
                     }}
                 />
