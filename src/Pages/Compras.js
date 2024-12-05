@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TextInput, Button, Pressable, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../Components/Header';
-import Banner from '../../assets/banner 3.png'
 import CompraAprovacao from './CompraAprovacao';
 
 export default function Compras({ navigation }) {
