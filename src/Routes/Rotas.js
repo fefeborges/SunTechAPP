@@ -7,14 +7,10 @@ import { AuthContext } from '../Context/AuthContext';
 
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
-<<<<<<< HEAD
 import Cadastro from '../Pages/Cadastro';
-import Foto from '../Pages/Foto';
 import Carrinho from '../Pages/Carrinho';      
-=======
 import Produto from '../Pages/Produto';
 import Perfil from '../Pages/Perfil';
->>>>>>> 9a06350383ff1fe9ac76ade58e25bc2cc1e7f5d7
 
 const Tab = createBottomTabNavigator();
 
