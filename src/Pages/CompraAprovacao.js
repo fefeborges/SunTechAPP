@@ -1,27 +1,31 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Header from '../Components/Header';
 import Sol from '../../assets/sol rodape (1).png'
-import { NavigationContainer } from '@react-navigation/native';
-import Home from './Home';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../Context/AuthContext';
 
-export default function CompraAprovacao({navigation, setAprovacao}) {
-  
-const [compra, setCompra] = useState([]);
-const [error, setError] = useState(false);
+export default function CompraAprovacao( {setAprovacao }) {
+
+  const {setExibeCarrinho} = useContext( AuthContext );
+
+  const navigation = useNavigation();
+
+  const [compra, setCompra] = useState([]);
+  const [error, setError] = useState(false);
 
   async function getCompraId() {
     await fetch('http://10.133.22.10:5251/api/Compra/GetCompraId/{id}', {
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json'
-        }
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
     })
-        .then(res => res.json())
-        .then(json => setCompra(json))
-        .catch(err => setError(true))
-}
-useEffect(() => { getCompraId() }, [])
+      .then(res => res.json())
+      .then(json => setCompra(json))
+      .catch(err => setError(true))
+  }
+  useEffect(() => { getCompraId() }, [])
 
   return (
     <View style={styles.container}>
@@ -30,18 +34,18 @@ useEffect(() => { getCompraId() }, [])
         <View style={styles.modal}>
           <View style={styles.info1}>
             <Text style={styles.title} >COMPRA REALIZADA COM SUCESSO!</Text>
-            <Image source={Sol} style={styles.sol}/>
+            <Image source={Sol} style={styles.sol} />
           </View>
           <Text style={styles.info}>Pedido: 13752000</Text>
           <Text style={styles.info}>Total: R$5400,00</Text>
           <Text style={styles.info}>Status: Pago</Text>
           <Text style={styles.info}>Previsão de Entrega: 08/12/24</Text>
-          <TouchableOpacity style={styles.button} onPress={() => { setAprovacao( false ); navigation.navigate( "Home" ) } }>
+          <TouchableOpacity style={styles.button} onPress={() => { setExibeCarrinho( false ); setAprovacao(false); navigation.navigate("Home") }}>
             <Text style={styles.buttonText}>OK</Text>
           </TouchableOpacity>
         </View>
       </View>
-  </View>
+    </View>
   )
 }
 
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 200,
     backgroundColor: '#BABABA',
-  }, 
+  },
   sol: {
     width: 60,
     height: 60,

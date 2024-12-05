@@ -1,10 +1,18 @@
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native';
 import Header from '../Components/Header';
 import Banner from '../../assets/banner 3.png'
+import { AuthContext } from '../Context/AuthContext';
+import Carrinho from './Carrinho';
 
 export default function Home() {
+
+  const {exibeCarrinho } = useContext( AuthContext );
+
+  if( exibeCarrinho ) {
+    return( <Carrinho /> )
+  }
 
   return (
     <View style={css.body}>

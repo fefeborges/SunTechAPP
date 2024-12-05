@@ -9,6 +9,8 @@ function AuthProvider({ children }) {
     const [monitoramentoDiario, setMonitoramentoDiario] = useState();
     const [carrinho, setCarrinho ] = useState([]);
 
+    const[ exibeCarrinho, setExibeCarrinho ] = useState(false);
+
     async function Login(email, senha) {
         if (email != "" && senha != "") {
             await fetch('http://10.133.22.10:5251/api/Cliente/Login', {
@@ -35,7 +37,7 @@ function AuthProvider({ children }) {
 
 
     return (
-        <AuthContext.Provider value={{ logado: logado, Login, error: error, usuario: usuario, monitoramentoDiario: monitoramentoDiario, setCarrinho: setCarrinho, carrinho: carrinho }}>
+        <AuthContext.Provider value={{ logado: logado, Login, error: error, usuario: usuario, monitoramentoDiario: monitoramentoDiario, setCarrinho: setCarrinho, carrinho: carrinho, exibeCarrinho: exibeCarrinho, setExibeCarrinho }}>
             {children}
         </AuthContext.Provider>
     )

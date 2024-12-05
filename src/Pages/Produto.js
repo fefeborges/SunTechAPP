@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text, FlatList, View, StyleSheet } from 'react-native'
 import { useState, useEffect } from 'react';
 import ProdutosLista from './ProdutosLista';
 import CategoriaLista from './CategoriaLista';
 import Header from '../Components/Header';
+import { AuthContext } from '../Context/AuthContext';
+import Carrinho from './Carrinho';
 
 export default function Produto() {
 
@@ -11,6 +13,10 @@ export default function Produto() {
     const [categoria, setCategoria] = useState([]);
     const [filtro, setFiltro] = useState([]);
     const [error, setError] = useState(false);
+
+    const { exibeCarrinho } = useContext(AuthContext);
+
+    
 
 
     function filterByCategoria(categoria) {
@@ -44,6 +50,10 @@ export default function Produto() {
     }
     useEffect(() => { getAllCategorias() }, [])
 
+    if (exibeCarrinho) {
+        return (<Carrinho />)
+    }
+
 
     return (
         <View style={css.container}>
@@ -69,7 +79,7 @@ export default function Produto() {
                     keyExtractor={(item) => item.produtoId}
                 />
             }
-            { filtro.length == 0 && produtos &&
+            {filtro.length == 0 && produtos &&
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     style={css.lista2}
@@ -79,7 +89,7 @@ export default function Produto() {
                 />
             }
 
-            { filtro.length == 0 && produtos.length == 0 && 
+            {filtro.length == 0 && produtos.length == 0 &&
                 <Text style={css.text}>Carregando Produtos</Text>
             }
         </View>
