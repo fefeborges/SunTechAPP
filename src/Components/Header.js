@@ -23,15 +23,7 @@ const css = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    logo:{
-=======
-    logo:{      
->>>>>>> 2b0b33a5522c599fd335e6ca9b15420095290ab0
-=======
     logo: {
->>>>>>> 98ae3e1ca2eeb5309fcc3d387165d23e78ee4ffa
         height: "100%",
         width: "70%",
         position: "static"
