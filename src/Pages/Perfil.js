@@ -6,12 +6,13 @@ import Carrinho from './Carrinho';
 
 export default function Perfil() {
 
-    const {usuario, Login, erro, setError } = useContext( AuthContext );
+    const {usuario, Login} = useContext( AuthContext );
 
     const [ monitoramento, setMonitoramento] = useState();
     const [ mediaDia, setMediaDia ] = useState(0);
     const [ aviso, setAviso ] = useState(false);
     const [ show, setShow] = useState();
+    const [error, setError ] = useState();
 
     const { exibeCarrinho } = useContext(AuthContext);
 
