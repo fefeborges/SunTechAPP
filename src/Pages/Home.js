@@ -1,4 +1,3 @@
-
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useState } from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,13 +7,20 @@ import Economiaimg from '../../assets/placaeconomia.jpg';
 import Simulacao from '../Components/Simulacao';
 import Economia from '../Components/Economia';
 import Carousel from 'react-native-reanimated-carousel';
-
+import { AuthContext } from '../Context/AuthContext';
+import Carrinho from './Carrinho';
 
 export default function Home() {
 
     const [simulacao, setSimulacao] = useState(false);
     const [calculo, setCalculo] = useState(false);
     const width = Dimensions.get('window').width;
+
+  const {exibeCarrinho } = useContext( AuthContext );
+
+  if( exibeCarrinho ) {
+    return( <Carrinho /> )
+  }
 
     
         const images = [

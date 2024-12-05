@@ -3,36 +3,41 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext(0);
 
 function AuthProvider({ children }) {
-    const [logado, setLogado] = useState(true);
+    const [logado, setLogado] = useState(false);
     const [error, setError] = useState(false);
+    const [usuario, setUsuario] = useState();
+    const [monitoramentoDiario, setMonitoramentoDiario] = useState();
+    const [carrinho, setCarrinho ] = useState([]);
+
+    const[ exibeCarrinho, setExibeCarrinho ] = useState(false);
 
     async function Login(email, senha) {
-
         if (email != "" && senha != "") {
-            await fetch('https://fakestoreapi.com/auth/login', {
+            await fetch('http://10.133.22.10:5251/api/Cliente/Login', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: email,
-                    password: senha
+                    emailCliente: email,
+                    senhaCliente: senha
                 })
             })
-                .then(res => (res.ok == true) ? res.json() : false)
+                .then(res => res.json() )
                 .then(json => {
-                    setLogado((json.token) ? true : false);
-                    setError((json.token) ? false : true);
+                    setLogado( true );
+                    setUsuario( json );
                 }
                 )
-                .catch(err => setError(true))
+                .catch(err => setError(true) )
         } else {
             setError(true)
         }
     }
 
+
     return (
-        <AuthContext.Provider value={{ logado: logado, Login, error: error }}>
+        <AuthContext.Provider value={{ logado: logado, Login, error: error, usuario: usuario, monitoramentoDiario: monitoramentoDiario, setCarrinho: setCarrinho, carrinho: carrinho, exibeCarrinho: exibeCarrinho, setExibeCarrinho }}>
             {children}
         </AuthContext.Provider>
     )

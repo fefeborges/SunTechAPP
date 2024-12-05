@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 
-export default function Anmais({ nome, image }) {
+export default function Animais({ nome, image }) {
     return (
         <View style={css.container}>
             
