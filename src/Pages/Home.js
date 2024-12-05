@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../Components/Header';
 import Simulacaoimg from '../../assets/homem placa.png';
@@ -45,7 +45,7 @@ export default function Home() {
                         panGestureHandlerProps={{
                             activeOffsetX: [-10, 10],
                         }}
-                        onSnapToItem={(index) => console.log('current index:', index)}
+                        onSnapToItem={(index) => index }
                         renderItem={({ item, index }) => (
                             <View style={{
                                 flex: 1, justifyContent: 'center', alignItems:
